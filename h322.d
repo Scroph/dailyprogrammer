@@ -49,7 +49,7 @@ static this()
 		".json": "application/json",
 		".xml": "application/xml",
 	];
-	units = ["bytes", "kB", "MB", "GB", "TB", "ZB", "NB", "FB", "Twitter", "I'm really just coming up with units at this point"];
+	units = ["bytes", "kB", "MB", "GB", "TB", "ZB", "NB", "FB", "PB", "I'm really just making up units at this point"];
 }
 
 class HttpException : Exception
@@ -104,7 +104,6 @@ struct StaticServer
 			{
 				auto req = HttpRequest(cast(string) raw[0 .. length]);
 				writeln("Request parsed :");
-				writeln(cast(string) raw);
 				serve(client, intercept(req));
 			}
 			catch(HttpException e)
@@ -123,7 +122,6 @@ struct StaticServer
 	{
 		try
 		{
-			writeln("Method detected : ", req.method.to!string);
 			auto file = buildPath(root, req.path);
 			if(!file.exists)
 				throw new HttpException(404, req.path ~ " was not found on this server.");
@@ -141,7 +139,6 @@ struct StaticServer
 				{
 					throw new HttpException(403, "Failed to read " ~ file);
 				}
-				writeln(cast(string) html);
 				auto resp = HttpResponse(200, req.method == Method.GET ? html : "".representation);
 				resp.setHeader("Content-Type", "text/html");
 				resp.setHeader("Content-Length", html.length);
