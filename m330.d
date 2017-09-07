@@ -1,3 +1,4 @@
+//https://redd.it/6yep7x
 import std.stdio;
 import std.uni;
 import std.exception;
