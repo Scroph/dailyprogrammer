@@ -42,8 +42,11 @@ void main()
 			case 'I':
 				robot.immobilized = false;
 			break;
-			default:
+			case '-':
 				robot.immobilized = true;
+			break;
+			default:
+				continue;
 			break;
 		}
 	}
@@ -52,7 +55,7 @@ void main()
 	else if(robot.dead)
 		writeln("Mr. Robot died trying.");
 	else if(robot.pos != exit)
-		writeln("Mr. Robot stopped before reaching the exit.");
+		writeln("Mr. Robot stopped at position ", robot.pos, " before reaching the exit.");
 
 	minefield.draw(path);
 }
@@ -87,6 +90,11 @@ struct Point
 	{
 		return x == other.x && y == other.y;
 	}
+
+	string toString()
+	{
+		return format("[%d, %d]", x, y);
+	}
 }
 
 struct Robot
@@ -114,7 +122,7 @@ struct Robot
 		if(immobilized || dead)
 			return false;
 		auto new_pos = pos + movements[direction];
-		if(minefield.within_bounds(new_pos))
+		if(minefield.within_bounds(new_pos) && minefield.cell_at(new_pos) != '+')
 		{
 			if(minefield.cell_at(new_pos) == '*')
 				dead = true;
