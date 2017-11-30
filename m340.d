@@ -1,17 +1,15 @@
 //https://redd.it/7d4yoe
 import std.stdio;
 import std.range;
-import std.typecons;
 import std.string;
 import std.conv : to;
-import std.array : array;
-import std.algorithm : map, each;
+import std.algorithm : each;
 
 void main()
 {
 	dchar[][] grid;
 	auto robot = Robot(Point(0, 0));
-	foreach(row, char[] line; stdin.byLine.enumerate)
+	foreach(row, line; stdin.byLine.enumerate)
 	{
 		grid ~= line.to!(dchar[]).strip;
 		int M = line.indexOf('M');
