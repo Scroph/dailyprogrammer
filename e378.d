@@ -32,7 +32,7 @@ unittest
     static assert(warmup2([]).empty);
 }
 
-bool warmup3(R)(int length, R input)
+bool warmup3(int length, int[] input)
 {
     return length > input.length;
 }
@@ -47,7 +47,7 @@ unittest
     static assert(warmup3(0, []) == false);
 }
 
-int[] warmup4(R)(int length, R input)
+int[] warmup4(int length, int[] input)
 {
     return input.take(length).map!(n => n - 1).chain(input.drop(length)).array;
 }
